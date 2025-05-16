@@ -1,19 +1,19 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useGuestContext } from "../context/GuestContext";
 import { FaMapMarkerAlt } from "react-icons/fa";
 
 const SeatingLayout: React.FC = () => {
-  const { tables, currentGuest, setCurrentGuest } = useGuestContext();
+  const { tables, currentGuest } = useGuestContext();
 
-  useEffect(() => {
-    if (currentGuest) {
-      const timer = setTimeout(() => {
-        setCurrentGuest(null);
-      }, 3500); // Show pin for 3 seconds
+  //   useEffect(() => {
+  //     if (currentGuest) {
+  //       const timer = setTimeout(() => {
+  //         setCurrentGuest(null);
+  //       }, 3500); // Show pin for 3 seconds
 
-      return () => clearTimeout(timer); // Cleanup
-    }
-  }, [currentGuest]);
+  //       return () => clearTimeout(timer); // Cleanup
+  //     }
+  //   }, [currentGuest]);
 
   return (
     <div className="max-w-5xl mx-auto mt-12 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 px-4">

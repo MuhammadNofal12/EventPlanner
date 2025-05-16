@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { toast } from "react-toastify";
@@ -8,16 +8,32 @@ import {
   Route,
   NavLink,
   Navigate,
+  useLocation,
 } from "react-router-dom";
 
 import RegistrationForm from "./components/RegistrationForm";
 import SearchGuest from "./components/SearchGuest";
 import AvailableTables from "./components/AvailableTables";
 import SeatingLayout from "./components/SeatingLayout";
+import { useGuestContext } from "./context/GuestContext";
+
+const RouteChangeHandler: React.FC = () => {
+  const location = useLocation();
+  const { setCurrentGuest } = useGuestContext();
+
+  useEffect(() => {
+    if (location.pathname !== "/seating") {
+      setCurrentGuest(null);
+    }
+  }, [location.pathname, setCurrentGuest]);
+
+  return null;
+};
 
 const App: React.FC = () => {
   return (
     <Router>
+      <RouteChangeHandler />
       <div className="min-h-screen w-full bg-gradient-to-b from-pink-100 to-pink-200 text-gray-800">
         <ToastContainer
           position="bottom-right"
