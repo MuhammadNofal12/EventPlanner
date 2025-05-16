@@ -1,0 +1,26 @@
+{
+  "eventInfo": {
+    "brideName": "Alice",
+    "groomName": "Bob"
+  },
+  "tables": [
+    { "table_no": "1", "available_seats": 8 },
+    { "table_no": "2", "available_seats": 0 },
+    { "table_no": "3", "available_seats": 5 },
+    { "table_no": "4", "available_seats": 6 }
+  ],
+  "registeredGuests": [
+    {
+      "name": "Mike Adam",
+      "member_count": 4,
+      "phone_number": "111-222-3333",
+      "assigned_table_no": "1"
+    },
+    {
+      "name": "Fatima Abdul",
+      "member_count": 6,
+      "phone_number": "444-555-6666",
+      "assigned_table_no": "4"
+    }
+  ]
+}
