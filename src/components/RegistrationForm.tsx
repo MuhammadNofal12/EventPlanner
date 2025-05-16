@@ -1,9 +1,14 @@
 import React, { useState } from "react";
 import { useGuestContext } from "../context/GuestContext";
+import { toast } from "react-toastify";
+
+import { useNavigate } from "react-router-dom";
 
 const RegistrationForm: React.FC = () => {
-  const { getAvailableTables, registerWalkinGuest } = useGuestContext();
+  const { getAvailableTables, registerWalkinGuest, setCurrentGuest } =
+    useGuestContext();
 
+  const navigate = useNavigate();
   const [name, setName] = useState("");
   const [memberCount, setMemberCount] = useState(1);
   const [phone, setPhone] = useState("");
@@ -25,13 +30,23 @@ const RegistrationForm: React.FC = () => {
       selectedTable
     );
     if (success) {
-      alert("Guest registered successfully!");
+      toast.success("Guest successfully registered!");
+
+      setCurrentGuest({
+        name,
+        member_count: memberCount,
+        phone_number: phone,
+        assigned_table_no: selectedTable,
+      });
+
+      navigate("/seating");
+
       setName("");
       setMemberCount(1);
       setPhone("");
       setSelectedTable("");
     } else {
-      alert("Not enough seats at selected table!");
+      toast.error("Not enough seats at selected table.");
     }
   };
 

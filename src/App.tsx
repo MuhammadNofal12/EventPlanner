@@ -1,4 +1,7 @@
 import React from "react";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { toast } from "react-toastify";
 import {
   BrowserRouter as Router,
   Routes,
@@ -16,6 +19,20 @@ const App: React.FC = () => {
   return (
     <Router>
       <div className="min-h-screen w-full bg-gradient-to-b from-pink-100 to-pink-200 text-gray-800">
+        <ToastContainer
+          position="bottom-right"
+          toastClassName="rounded-md shadow-lg"
+          progressClassName="bg-pink-400"
+          autoClose={3000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme="light"
+        />
         <nav className="bg-pink-400 shadow-md sticky top-0 z-50 w-full">
           <div className="max-w-6xl mx-auto px-4 py-4 flex flex-wrap justify-center gap-6">
             {[
@@ -58,11 +75,13 @@ const SearchGuestWrapper = () => {
     name: string;
     assigned_table_no: string;
   }) => {
-    alert(`Guest Found:\n${guest.name} - Table ${guest.assigned_table_no}`);
+    toast.success(
+      `Guest Found: ${guest.name} (Table ${guest.assigned_table_no})`
+    );
   };
 
   const handleGuestNotFound = (query: string) => {
-    alert(`No guest found with name:\n"${query}"`);
+    toast.error(`No guest found with name: "${query}"`);
   };
 
   return (

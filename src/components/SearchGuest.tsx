@@ -42,27 +42,32 @@ const SearchGuest: React.FC<SearchGuestProps> = ({
   };
 
   const handleSearch = () => {
-    if (suggestions.length === 1) {
-      const fullGuest = findRegisteredGuest(suggestions[0].name);
-      if (fullGuest) {
-        onGuestFound(fullGuest);
-        setCurrentGuest(fullGuest);
+    const trimmedQuery = query.trim();
+    if (!trimmedQuery) return;
+
+    const fullGuest = findRegisteredGuest(trimmedQuery);
+    if (fullGuest) {
+      onGuestFound(fullGuest);
+      setCurrentGuest(fullGuest);
+      navigate("/seating");
+      return;
+    }
+
+    if (
+      suggestions.length === 1 &&
+      suggestions[0].name.toLowerCase() === trimmedQuery.toLowerCase()
+    ) {
+      const matchedGuest = findRegisteredGuest(suggestions[0].name);
+      if (matchedGuest) {
+        onGuestFound(matchedGuest);
+        setCurrentGuest(matchedGuest);
         navigate("/seating");
-      } else {
-        onGuestNotFound(suggestions[0].name);
-      }
-    } else if (suggestions.length === 0) {
-      const foundGuest = findRegisteredGuest(query.trim());
-      if (foundGuest) {
-        onGuestFound(foundGuest);
-        setCurrentGuest(foundGuest);
-        navigate("/seating");
-      } else {
-        onGuestNotFound(query.trim());
+        return;
       }
     }
-  };
 
+    onGuestNotFound(trimmedQuery);
+  };
   return (
     <div className="mb-8 relative flex flex-col sm:flex-row items-start sm:items-center gap-4 w-full max-w-md mx-auto">
       <input
